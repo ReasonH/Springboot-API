@@ -3,5 +3,5 @@ package com.api.music.domain.albums;
 import java.util.List;
 
 public interface AlbumRepositoryCustom {
-    List<Album> findBySearchWord(String searchword);
+    List<Album> findBySearchWord(String searchword, String locale);
 }

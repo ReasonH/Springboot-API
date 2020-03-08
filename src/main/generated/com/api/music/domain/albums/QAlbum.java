@@ -22,7 +22,7 @@ public class QAlbum extends EntityPathBase<Album> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final ListPath<String, StringPath> locale = this.<String, StringPath>createList("locale", String.class, StringPath.class, PathInits.DIRECT2);
+    public final ListPath<com.api.music.domain.locale.LocaleCode, com.api.music.domain.locale.QLocaleCode> localeCodes = this.<com.api.music.domain.locale.LocaleCode, com.api.music.domain.locale.QLocaleCode>createList("localeCodes", com.api.music.domain.locale.LocaleCode.class, com.api.music.domain.locale.QLocaleCode.class, PathInits.DIRECT2);
 
     public final ListPath<com.api.music.domain.songs.Song, com.api.music.domain.songs.QSong> songs = this.<com.api.music.domain.songs.Song, com.api.music.domain.songs.QSong>createList("songs", com.api.music.domain.songs.Song.class, com.api.music.domain.songs.QSong.class, PathInits.DIRECT2);
 

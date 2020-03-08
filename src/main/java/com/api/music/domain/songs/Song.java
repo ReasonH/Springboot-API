@@ -18,13 +18,13 @@ public class Song {
     private String title;
 
     @Column
-    private int track;
+    private Integer track;
 
     @Column
-    private int length;
+    private Integer length;
 
     @Builder
-    public Song(String title, int track, int length){
+    public Song(String title, Integer track, Integer length){
         this.title = title;
         this.track = track;
         this.length = length;

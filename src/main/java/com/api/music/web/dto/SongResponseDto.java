@@ -4,11 +4,11 @@ import lombok.Builder;
 
 public class SongResponseDto {
     private String title;
-    private int track;
-    private int length;
+    private Integer track;
+    private Integer length;
 
     @Builder
-    public SongResponseDto(String title, int track, int length){
+    public SongResponseDto(String title, Integer track, Integer length){
         this.title = title;
         this.track = track;
         this.length = length;

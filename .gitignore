@@ -5,3 +5,5 @@ generated/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**
 !**/src/test/**
+src/main/resources/static/
+src/main/resources/templates/

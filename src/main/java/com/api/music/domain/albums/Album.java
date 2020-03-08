@@ -1,5 +1,6 @@
 package com.api.music.domain.albums;
 
+import com.api.music.domain.locale.LocaleCode;
 import com.api.music.domain.songs.Song;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,7 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 public class Album {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -21,21 +21,18 @@ public class Album {
     @Column
     private String title;
 
-    @ElementCollection
-    @CollectionTable(
-            name = "LOCALES",
-            joinColumns = @JoinColumn(name = "id")
-    )
-    @Column
-    private List<String> locale = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "localecode")
+    private List<LocaleCode> localeCodes = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Song> songs = new ArrayList<Song>();
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "song_id")
+    private List<Song> songs = new ArrayList<>();
 
     @Builder
-    public Album(String title, List<String> locale, List<Song> songs){
+    public Album(String title, List<LocaleCode> localeCodes , List<Song> songs){
         this.title = title;
-        this.locale = locale;
+        this.localeCodes = localeCodes;
         this.songs = songs;
     }
 }
