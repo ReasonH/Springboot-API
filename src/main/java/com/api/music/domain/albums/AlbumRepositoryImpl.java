@@ -15,11 +15,11 @@ public class AlbumRepositoryImpl implements AlbumRepositoryCustom{
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<Album> findBySearchWord(String searchword, String locale) {
+    public List<Album> isRightLocale(String locale) {
         return queryFactory.selectFrom(album)
-                .join(album.songs, song)
-                .where()
+                .where(validateCopyright(locale))
                 .fetch();
+        //TO-DO: return dto로 변경
     }
     private BooleanExpression validateCopyright(String locale){
         if(StringUtils.isEmpty(locale)){

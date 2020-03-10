@@ -6,18 +6,20 @@ import com.api.music.domain.locale.LocaleCode;
 import com.api.music.domain.locale.LocaleCodeRepository;
 import com.api.music.domain.songs.Song;
 import com.api.music.domain.songs.SongRepository;
-import org.junit.After;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(SpringRunner.class)
+
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class AlbumTest {
 
@@ -30,11 +32,11 @@ public class AlbumTest {
     @Autowired
     private SongRepository songRepository;
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
-        albumRepository.deleteAllInBatch();
-        localeCodeRepository.deleteAllInBatch();
-        songRepository.deleteAllInBatch();
+        albumRepository.deleteAll();
+        localeCodeRepository.deleteAll();
+        songRepository.deleteAll();
     }
 
     @Test
@@ -67,8 +69,7 @@ public class AlbumTest {
         //when
         List<Album> result = albumRepository.findAll();
 
-        //then
-//        assertThat(result.size(), is(1));
-//        assertThat(result.get(0).getAddress(), is(address));
+        assertEquals(result.size(), 1);
+        assertEquals(result.get(0).getLocaleCodes().size(), 2);
     }
 }

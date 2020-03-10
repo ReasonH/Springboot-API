@@ -21,12 +21,12 @@ public class Album {
     @Column
     private String title;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "localecode")
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "album_id")
     private List<LocaleCode> localeCodes = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "song_id")
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "album_id")
     private List<Song> songs = new ArrayList<>();
 
     @Builder

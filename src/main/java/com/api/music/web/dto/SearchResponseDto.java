@@ -7,11 +7,11 @@ import lombok.Builder;
 import java.util.List;
 
 public class SearchResponseDto {
-    private List<Album> albums;
-    private List<Song> songs;
+    private List<AlbumResponseDto> albums;
+    private List<SongResponseDto> songs;
 
     @Builder
-    public SearchResponseDto(List<Album> albums, List<Song> songs){
+    public SearchResponseDto(List<AlbumResponseDto> albums, List<SongResponseDto> songs){
         this.albums = albums;
         this.songs = songs;
     }
