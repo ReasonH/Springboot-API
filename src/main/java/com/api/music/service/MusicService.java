@@ -1,9 +1,9 @@
 package com.api.music.service;
 
 import com.api.music.domain.albums.AlbumRepository;
-import com.api.music.web.dto.AlbumResponseDto;
-import com.api.music.web.dto.SearchResponseDto;
-import com.api.music.web.dto.SongResponseDto;
+import com.api.music.dto.AlbumResponseDto;
+import com.api.music.dto.SearchResponseDto;
+import com.api.music.dto.SongResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class SearchService {
+public class MusicService {
     private final AlbumRepository albumRepository;
 
     @Transactional(readOnly = true)

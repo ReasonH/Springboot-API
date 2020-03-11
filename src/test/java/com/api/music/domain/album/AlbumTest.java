@@ -40,25 +40,8 @@ public class AlbumTest {
     }
 
     @Test
-    public void querydsl_Custom기능_확인() {
-        localeCodeRepository.save(LocaleCode.builder()
-                .locale("kr")
-                .build());
-        localeCodeRepository.save(LocaleCode.builder()
-                .locale("jp")
-                .build());
-
-        songRepository.save(Song.builder()
-                .title("hi")
-                .track(120)
-                .length(130)
-                .build());
-
-        songRepository.save(Song.builder()
-                .title("hi2")
-                .track(140)
-                .length(150)
-                .build());
+    public void querydsl_Custom_response_확인() {
+//        albumRepository.isRightLocale("kr").
 
         albumRepository.save(Album.builder()
                 .title("hello")
@@ -72,4 +55,19 @@ public class AlbumTest {
         assertEquals(result.size(), 1);
         assertEquals(result.get(0).getLocaleCodes().size(), 2);
     }
+
+//    @Test
+//    public void querydsl_Custom_response_확인() {
+//        albumRepository.save(Album.builder()
+//                .title("hello")
+//                .localeCodes(localeCodeRepository.findAll())
+//                .songs(songRepository.findAll())
+//                .build());
+//
+//        //when
+//        List<Album> result = albumRepository.findAll();
+//
+//        assertEquals(result.size(), 1);
+//        assertEquals(result.get(0).getLocaleCodes().size(), 2);
+//    }
 }

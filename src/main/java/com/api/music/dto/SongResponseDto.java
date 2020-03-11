@@ -1,9 +1,9 @@
-package com.api.music.web.dto;
+package com.api.music.dto;
 
 import com.api.music.domain.songs.Song;
-import lombok.Builder;
+import lombok.Getter;
 
-
+@Getter
 public class SongResponseDto {
     private String title;
     private Integer track;

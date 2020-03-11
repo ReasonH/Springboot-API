@@ -1,11 +1,11 @@
-package com.api.music.web.dto;
+package com.api.music.dto;
 
-import com.api.music.domain.albums.Album;
-import com.api.music.domain.songs.Song;
 import lombok.Builder;
+import lombok.Getter;
 
 import java.util.List;
 
+@Getter
 public class SearchResponseDto {
     private List<AlbumResponseDto> albums;
     private List<SongResponseDto> songs;

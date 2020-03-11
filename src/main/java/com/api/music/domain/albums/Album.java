@@ -30,7 +30,7 @@ public class Album {
     private List<Song> songs = new ArrayList<>();
 
     @Builder
-    public Album(String title, List<LocaleCode> localeCodes , List<Song> songs){
+    public Album(String title, List<LocaleCode> localeCodes, List<Song> songs){
         this.title = title;
         this.localeCodes = localeCodes;
         this.songs = songs;
