@@ -18,12 +18,4 @@ public class AlbumResponseDto {
         this.locales = entity.getLocaleCodes();
         this.songs = entity.getSongs();
     }
-    
-    public Album toEntity(){
-        return Album.builder()
-                .title(title)
-                .localeCodes(locales)
-                .songs(songs)
-                .build();
-    }
 }

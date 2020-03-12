@@ -5,6 +5,9 @@ import com.api.music.dto.AlbumResponseDto;
 import com.api.music.dto.SearchResponseDto;
 import com.api.music.dto.SongResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,5 +40,13 @@ public class MusicService {
                 .albums(findAlbumBySearchWord(title, locale))
                 .songs(findSongBySearchWord(title, locale))
                 .build();
+    }
+
+    @Transactional(readOnly = true)
+    public Page<AlbumResponseDto> findAll(Pageable pageable) {
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); // page는 index 처럼 0부터 시작
+        pageable = PageRequest.of(page, 10);
+
+        return albumRepository.findAll(pageable).map(AlbumResponseDto::new);
     }
 }
