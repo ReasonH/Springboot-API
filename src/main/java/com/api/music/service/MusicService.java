@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,10 +46,26 @@ public class MusicService {
     }
 
     @Transactional(readOnly = true)
-    public Page<AlbumResponseDto> findAll(Pageable pageable) {
+    public Page<AlbumResponseDto> findAll(Pageable pageable, String locale) {
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); // page는 index 처럼 0부터 시작
-        pageable = PageRequest.of(page, 10);
+        pageable = PageRequest.of(page, 10); // page request 생성
 
-        return albumRepository.findAll(pageable).map(AlbumResponseDto::new);
+        // Querydsl 사용하여 locale code 적용한 상태로 pageable dto를 뽑아온다
+        Page<AlbumResponseDto> nowPage = albumRepository.getAlbumList(locale, pageable).map(AlbumResponseDto::new);
+
+        PagedResourcesAssembler<AlbumResponseDto> assembler = new PagedResourcesAssembler<>(null, null);
+        PagedModel<EntityModel<AlbumResponseDto>> pagedModel = assembler.toModel(nowPage); // page 객체 기반 pagedModel 생성
+
+        if (!nowPage.isFirst())
+            System.out.println("is not firstpage");
+        if (!nowPage.isLast())
+            System.out.println("is not lastpage");
+        if (nowPage.hasPrevious())
+            System.out.println(pagedModel.getPreviousLink());
+        if (nowPage.hasNext())
+            System.out.println(pagedModel.getNextLink());
+        pagedModel.getContent();
+
+        return nowPage;
     }
 }

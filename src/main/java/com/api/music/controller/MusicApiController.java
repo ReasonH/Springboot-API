@@ -26,8 +26,8 @@ public class MusicApiController {
     }
 
     @GetMapping("/albums")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Page<AlbumResponseDto>> getAlbumList(@PageableDefault(size = 10) Pageable pageable) {
-        return new ResponseEntity<>(musicService.findAll(pageable), HttpStatus.OK);
+    public ResponseEntity<Page<AlbumResponseDto>> getAlbumList(@PageableDefault(size = 10) Pageable pageable,
+                                                               @RequestParam("locale") String locale) {
+        return new ResponseEntity<>(musicService.findAll(pageable, locale), HttpStatus.OK);
     }
 }

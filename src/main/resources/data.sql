@@ -10,7 +10,8 @@ insert into ALBUM (id, title) values
     (9, 'album9'),
     (10, 'album10'),
     (11, 'album11'),
-    (12, 'album12');
+    (12, 'album12'),
+    (13, 'album13');
 
 insert into LOCALE_CODE (locale_id, locale, album_id) values
     (1, 'kr', 1),
@@ -27,7 +28,8 @@ insert into LOCALE_CODE (locale_id, locale, album_id) values
     (12, 'all', 11),
     (13, 'ml', 12),
     (14, 'ek', 12),
-    (15, 'us', 12);
+    (15, 'us', 12),
+    (16, 'haha', 13);
 
 insert into SONG (id, title, track, length, album_id) values
     (1, 'hi1', 120, 130, 1),

@@ -9,13 +9,13 @@ import java.util.List;
 
 @Getter
 public class AlbumResponseDto {
+    private Long id;
     private String title;
-    private List<LocaleCode> locales;
     private List<Song> songs;
 
     public AlbumResponseDto(Album entity){
+        this.id = entity.getId();
         this.title = entity.getTitle();
-        this.locales = entity.getLocaleCodes();
         this.songs = entity.getSongs();
     }
 }
