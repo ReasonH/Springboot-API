@@ -1,5 +1,6 @@
 package com.api.music.controller;
 
+import com.api.music.dto.AlbumListResponseDto;
 import com.api.music.dto.AlbumResponseDto;
 import com.api.music.dto.SearchResponseDto;
 import com.api.music.service.MusicService;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RequiredArgsConstructor
 @RestController
 public class MusicApiController {
@@ -26,8 +29,10 @@ public class MusicApiController {
     }
 
     @GetMapping("/albums")
-    public ResponseEntity<Page<AlbumResponseDto>> getAlbumList(@PageableDefault(size = 10) Pageable pageable,
-                                                               @RequestParam("locale") String locale) {
-        return new ResponseEntity<>(musicService.findAll(pageable, locale), HttpStatus.OK);
+    public ResponseEntity<AlbumListResponseDto> getAlbumList(@PageableDefault(size = 10) Pageable pageable,
+                                             @RequestParam("locale") String locale,
+                                             HttpServletRequest httpServletRequest) {
+        //return new ResponseEntity<>(musicService.getAlbumList(pageable, locale, httpServletRequest.getRequestURL()), HttpStatus.OK);
+        return new ResponseEntity<>(musicService.getAlbumList(pageable, locale, httpServletRequest.getRequestURL()), HttpStatus.OK);
     }
 }

@@ -1,6 +1,7 @@
 package com.api.music.service;
 
 import com.api.music.domain.albums.AlbumRepository;
+import com.api.music.dto.AlbumListResponseDto;
 import com.api.music.dto.AlbumResponseDto;
 import com.api.music.dto.SearchResponseDto;
 import com.api.music.dto.SongResponseDto;
@@ -46,26 +47,28 @@ public class MusicService {
     }
 
     @Transactional(readOnly = true)
-    public Page<AlbumResponseDto> findAll(Pageable pageable, String locale) {
-        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); // page는 index 처럼 0부터 시작
-        pageable = PageRequest.of(page, 10); // page request 생성
+    public AlbumListResponseDto getAlbumList(Pageable pageable, String locale, StringBuffer currentUri) {
+        int requestIndex = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); // page는 index 처럼 0부터 시작
+        pageable = PageRequest.of(requestIndex, 10); // page request 생성
 
         // Querydsl 사용하여 locale code 적용한 상태로 pageable dto를 뽑아온다
-        Page<AlbumResponseDto> nowPage = albumRepository.getAlbumList(locale, pageable).map(AlbumResponseDto::new);
+        Page<AlbumResponseDto> page = albumRepository.getAlbumList(locale, pageable).map(AlbumResponseDto::new);
 
         PagedResourcesAssembler<AlbumResponseDto> assembler = new PagedResourcesAssembler<>(null, null);
-        PagedModel<EntityModel<AlbumResponseDto>> pagedModel = assembler.toModel(nowPage); // page 객체 기반 pagedModel 생성
+        PagedModel<EntityModel<AlbumResponseDto>> pagedModel = assembler.toModel(page); // page 객체 기반 pagedModel 생성
 
-        if (!nowPage.isFirst())
-            System.out.println("is not firstpage");
-        if (!nowPage.isLast())
-            System.out.println("is not lastpage");
-        if (nowPage.hasPrevious())
-            System.out.println(pagedModel.getPreviousLink());
-        if (nowPage.hasNext())
-            System.out.println(pagedModel.getNextLink());
-        pagedModel.getContent();
+        if (!page.isFirst())
+            System.out.println(currentUri + "?locale=" + locale + "&page=0&size=10");
+        if (!page.isLast())
+            System.out.println(currentUri + "?locale=" + locale + "&page=" +
+                    String.format("%d", page.getTotalPages()-1) + "&size=10");
+        if (page.hasPrevious())
+            System.out.println(pagedModel.getPreviousLink().get().getHref());
+        if (page.hasNext())
+            System.out.println(pagedModel.getNextLink().get().getHref());
 
-        return nowPage;
+        return AlbumListResponseDto.builder()
+                .content(page.getContent())
+                .build();
     }
 }
