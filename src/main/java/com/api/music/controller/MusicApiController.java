@@ -32,7 +32,6 @@ public class MusicApiController {
     public ResponseEntity<AlbumListResponseDto> getAlbumList(@PageableDefault(size = 10) Pageable pageable,
                                              @RequestParam("locale") String locale,
                                              HttpServletRequest httpServletRequest) {
-        //return new ResponseEntity<>(musicService.getAlbumList(pageable, locale, httpServletRequest.getRequestURL()), HttpStatus.OK);
         return new ResponseEntity<>(musicService.getAlbumList(pageable, locale, httpServletRequest.getRequestURL()), HttpStatus.OK);
     }
 }

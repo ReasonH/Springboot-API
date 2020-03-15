@@ -5,12 +5,14 @@ import com.api.music.dto.AlbumListResponseDto;
 import com.api.music.dto.AlbumResponseDto;
 import com.api.music.dto.SearchResponseDto;
 import com.api.music.dto.SongResponseDto;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,27 +50,42 @@ public class MusicService {
 
     @Transactional(readOnly = true)
     public AlbumListResponseDto getAlbumList(Pageable pageable, String locale, StringBuffer currentUri) {
-        int requestIndex = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); // page는 index 처럼 0부터 시작
+        int requestIndex = (pageable.getPageNumber() - 1); // page index는 내부적으로는 0부터 시작
         pageable = PageRequest.of(requestIndex, 10); // page request 생성
 
         // Querydsl 사용하여 locale code 적용한 상태로 pageable dto를 뽑아온다
         Page<AlbumResponseDto> page = albumRepository.getAlbumList(locale, pageable).map(AlbumResponseDto::new);
 
-        PagedResourcesAssembler<AlbumResponseDto> assembler = new PagedResourcesAssembler<>(null, null);
-        PagedModel<EntityModel<AlbumResponseDto>> pagedModel = assembler.toModel(page); // page 객체 기반 pagedModel 생성
+//        PagedResourcesAssembler<AlbumResponseDto> assembler = new PagedResourcesAssembler<>(null, null);
+//        PagedModel<EntityModel<AlbumResponseDto>> pagedModel = assembler.toModel(page); // page 객체 기반 pagedModel 생성
 
+        String first = null;
         if (!page.isFirst())
-            System.out.println(currentUri + "?locale=" + locale + "&page=0&size=10");
-        if (!page.isLast())
-            System.out.println(currentUri + "?locale=" + locale + "&page=" +
-                    String.format("%d", page.getTotalPages()-1) + "&size=10");
+            first = (currentUri + "?locale=" + locale + "&page=1");
+        String prev = null;
         if (page.hasPrevious())
-            System.out.println(pagedModel.getPreviousLink().get().getHref());
+            prev = (currentUri + "?locale=" + locale + "&page=" +
+                    String.format("%d", pageable.getPageNumber()));
+        String last = null;
+        if (!page.isLast())
+            last = (currentUri + "?locale=" + locale + "&page=" +
+                    String.format("%d", page.getTotalPages()));
+        String next = null;
         if (page.hasNext())
-            System.out.println(pagedModel.getNextLink().get().getHref());
+            next = (currentUri + "?locale=" + locale + "&page=" +
+                    String.format("%d", pageable.getPageNumber()+2));
+
+//        String prev = pagedModel.getPreviousLink().map(Link::getHref).orElse(null);
+//        String next = pagedModel.getNextLink().map(Link::getHref).orElse(null);;
 
         return AlbumListResponseDto.builder()
-                .content(page.getContent())
+                .pages(AlbumListResponseDto.AlbumPageLinks.builder()
+                        .first(first)
+                        .prev(prev)
+                        .last(last)
+                        .next(next)
+                        .build()
+                ).content(page.getContent())
                 .build();
     }
 }
