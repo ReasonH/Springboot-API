@@ -1,6 +1,8 @@
 package com.api.music.service;
 
+import com.api.music.domain.albums.Album;
 import com.api.music.domain.albums.AlbumRepository;
+import com.api.music.domain.songs.Song;
 import com.api.music.dto.AlbumListResponseDto;
 import com.api.music.dto.AlbumResponseDto;
 import com.api.music.dto.SearchResponseDto;
@@ -26,18 +28,33 @@ public class MusicService {
     private final AlbumRepository albumRepository;
 
     @Transactional(readOnly = true)
-    public List<AlbumResponseDto> findAlbumBySearchWord (String title, String locale) {
+    public List<AlbumResponseDto> findAlbumBySearchWord (String searchWord, String locale) {
         return albumRepository.isRightLocale(locale).stream()
-                .filter(album -> album.getTitle().contains(title))
+                .filter(album -> album.getTitle().contains(searchWord))
                 .map(AlbumResponseDto::new)
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public List<SongResponseDto> findSongBySearchWord (String title, String locale) {
+    public List<SongResponseDto> findSongBySearchWord (String searchWord, String locale) {
         return albumRepository.isRightLocale(locale).stream()
-                .flatMap(album -> album.getSongs().stream().filter(song -> song.getTitle().contains(title)))
+                .flatMap(album -> album.getSongs().stream().filter(song -> song.getTitle().contains(searchWord)))
                 .map(SongResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<Song> findBySongUnits(String title, String locale){
+        return albumRepository.isRightLocale(locale).stream()
+                .flatMap(album -> album.getSongs().stream().filter(song -> song.getTitle().equals(title)))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<Song> findByAlbumUnits(String title, String locale){
+        return albumRepository.isRightLocale(locale).stream()
+                .filter(album -> album.getTitle().equals(title))
+                .flatMap(album -> album.getSongs().stream())
                 .collect(Collectors.toList());
     }
 

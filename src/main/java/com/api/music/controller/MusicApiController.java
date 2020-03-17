@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 public class MusicApiController {
     private final MusicService musicService;
 
-    @GetMapping("/api/music")
+    @GetMapping("/music")
     public SearchResponseDto findBySearchWord(@RequestParam("title") String title,
                                               @RequestParam("locale") String locale){
         return musicService.findBySearchWord(title, locale);
