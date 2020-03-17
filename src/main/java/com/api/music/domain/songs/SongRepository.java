@@ -5,4 +5,5 @@ import com.api.music.domain.albums.AlbumRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SongRepository extends JpaRepository<Song, Long> {
+    Song findAllByTitle(String title);
 }
