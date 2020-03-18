@@ -1,15 +1,15 @@
-package com.api.music.dto;
+package com.api.music.dto.playlist;
 
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class PlayListAddRequestDto {
+public class PlayListSongAddRequestDto {
     String locale;
     String title;
 
     @Builder
-    public PlayListAddRequestDto(String locale, String title){
+    public PlayListSongAddRequestDto(String locale, String title){
         this.locale = locale;
         this.title = title;
     }

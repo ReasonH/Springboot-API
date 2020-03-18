@@ -1,11 +1,9 @@
 package com.api.music.controller;
 
-import com.api.music.dto.AlbumListResponseDto;
-import com.api.music.dto.AlbumResponseDto;
-import com.api.music.dto.SearchResponseDto;
+import com.api.music.dto.musicservice.AlbumListResponseDto;
+import com.api.music.dto.musicservice.SearchResponseDto;
 import com.api.music.service.MusicService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;

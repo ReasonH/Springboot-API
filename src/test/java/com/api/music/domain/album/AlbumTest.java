@@ -41,8 +41,6 @@ public class AlbumTest {
 
     @Test
     public void querydsl_Custom_response_확인() {
-//        albumRepository.isRightLocale("kr").
-
         albumRepository.save(Album.builder()
                 .title("hello")
                 .localeCodes(localeCodeRepository.findAll())
@@ -55,19 +53,4 @@ public class AlbumTest {
         assertEquals(result.size(), 1);
         assertEquals(result.get(0).getLocaleCodes().size(), 2);
     }
-
-//    @Test
-//    public void querydsl_Custom_response_확인() {
-//        albumRepository.save(Album.builder()
-//                .title("hello")
-//                .localeCodes(localeCodeRepository.findAll())
-//                .songs(songRepository.findAll())
-//                .build());
-//
-//        //when
-//        List<Album> result = albumRepository.findAll();
-//
-//        assertEquals(result.size(), 1);
-//        assertEquals(result.get(0).getLocaleCodes().size(), 2);
-//    }
 }

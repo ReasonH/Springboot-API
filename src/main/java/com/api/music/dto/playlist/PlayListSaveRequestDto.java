@@ -1,4 +1,4 @@
-package com.api.music.dto;
+package com.api.music.dto.playlist;
 
 import com.api.music.domain.playlist.PlayList;
 import com.api.music.domain.playlistsong.PlayListSong;
@@ -10,22 +10,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@NoArgsConstructor
 public class PlayListSaveRequestDto {
-    String name;
     String userId;
+    String name;
 
     @Builder
-    public PlayListSaveRequestDto(String name, String userId){
-        this.name = name;
+    public PlayListSaveRequestDto(String userId, String name){
         this.userId = userId;
+        this.name = name;
     }
 
     public PlayList toEntity(){
         return PlayList.builder()
-                .name(name)
                 .userId(userId)
-                .songs(null)
+                .name(name)
+                .playListSongs(null)
                 .build();
     }
 }

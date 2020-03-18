@@ -18,18 +18,19 @@ public class PlayList {
     private Long id;
 
     @Column
-    private String name;
-
-    @Column
     private String userId;
 
-    @OneToMany(mappedBy = "playList")
-    private List<PlayListSong> songs;
+    @Column
+    private String name;
+
+    // 삭제 시 관계테이블 요소도 연쇄삭제
+    @OneToMany(mappedBy = "playList", cascade = CascadeType.REMOVE)
+    private List<PlayListSong> playListSongs;
 
     @Builder
-    public PlayList(String name, String userId, List<PlayListSong> songs){
-        this.name = name;
+    public PlayList(String userId, String name, List<PlayListSong> playListSongs){
         this.userId = userId;
-        this.songs = songs;
+        this.name = name;
+        this.playListSongs = playListSongs;
     }
 }

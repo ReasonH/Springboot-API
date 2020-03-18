@@ -47,3 +47,8 @@ insert into SONG (id, title, track, length, album_id) values
     (13, 'albumid7', 160, 170, 10),
     (14, 'all_song8', 170, 180, 11),
     (15, 'albumid9', 160, 170, 12);
+
+insert into PLAY_LIST (id, user_id, name) values
+    (1, 'lyh1', 'test1'),
+    (2, 'lyh1', 'test2'),
+    (3, 'lyh1', 'test3');

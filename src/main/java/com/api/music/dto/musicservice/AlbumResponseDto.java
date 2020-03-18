@@ -1,4 +1,4 @@
-package com.api.music.dto;
+package com.api.music.dto.musicservice;
 
 import com.api.music.domain.albums.Album;
 import com.api.music.domain.locale.LocaleCode;

@@ -1,21 +1,15 @@
 package com.api.music.service;
 
-import com.api.music.domain.albums.Album;
 import com.api.music.domain.albums.AlbumRepository;
 import com.api.music.domain.songs.Song;
-import com.api.music.dto.AlbumListResponseDto;
-import com.api.music.dto.AlbumResponseDto;
-import com.api.music.dto.SearchResponseDto;
-import com.api.music.dto.SongResponseDto;
-import lombok.Builder;
+import com.api.music.dto.musicservice.AlbumListResponseDto;
+import com.api.music.dto.musicservice.AlbumResponseDto;
+import com.api.music.dto.musicservice.SearchResponseDto;
+import com.api.music.dto.musicservice.SongResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.Link;
-import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

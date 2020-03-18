@@ -1,4 +1,4 @@
-package com.api.music.dto;
+package com.api.music.dto.musicservice;
 
 import lombok.Builder;
 import lombok.Getter;

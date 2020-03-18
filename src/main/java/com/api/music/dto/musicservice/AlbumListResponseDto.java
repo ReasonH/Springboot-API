@@ -1,4 +1,4 @@
-package com.api.music.dto;
+package com.api.music.dto.musicservice;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -31,5 +31,4 @@ public class AlbumListResponseDto {
         this.content = content;
         this.pages = pages;
     }
-
 }
