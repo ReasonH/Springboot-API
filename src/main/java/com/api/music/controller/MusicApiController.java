@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 public class MusicApiController {
     private final MusicService musicService;
 
-    @GetMapping("/music")
+    @GetMapping("/search")
     public SearchResponseDto findBySearchWord(@RequestParam("title") String title,
                                               @RequestParam("locale") String locale){
         return musicService.findBySearchWord(title, locale);
